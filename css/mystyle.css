@@ -1,4 +1,4 @@
-/*Contact-box */
+/* Contact-box
 input[type=text], select, textarea {
     width: 100%; 
     padding: 12px; 
@@ -40,4 +40,4 @@ input[type=submit] {
      text-align: center;
      flex-direction: column;
      background-color: rgb(169, 173, 173);
-  }
+  } */

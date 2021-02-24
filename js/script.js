@@ -1,62 +1,124 @@
 // //https://wger.de/api/v2/muscle/?format=json
 
 
-const form = document.querySelector("#contactForm");
-const name = document.querySelector("#fullName");
-const subject = document.querySelector("#subject");
-const email = document.querySelector("#email");
-const address = document.querySelector("#address");
-const errorElment = document.querySelector ("error");
+// const form = document.querySelector("#contactForm");
+// const fullName = document.querySelector("#ffullName");
+// const fullNameError = document.querySelector("#fullNameError");
+// const subjectError = document.querySelector("#subject");
+// const addressError = document.querySelector("#subjectError");
+// const email = document.querySelector ("email");
+// const emailError = document.querySelector ("emailError");
+
+// function validateForm () {
+//     event.preventDefault();
 
 
-("click", function(event){
-    event.preventDefault()
-  });
-        /* ... */
-    
+
+//     if (checklength(fullName.value, 5) ===true){
+//         fullNameError.style.display = "none";
+//     }
+//     else{ 
+//         fullNameError.style.display = "block";
+//     }
+// //--------------------------------------------------
+
+//     if (checklength(subject.value,10) ===true){
+//         subjectError.style.display = "none";
+//     }
+//     else{ 
+//         subjectError.style.display = "block";
+//     }
+// //-----------------------------------------------------------------
+//     //-----------------------------------------------
+
+//     if (checklength(email.value,0) ===true){
+//         emailError.style.display = "none";
+//     }
+//     else{ 
+//         emailError.style.display = "block";
+//     }
+
+//     if (checklength(address.value,15) ===true){
+//         addressError.style.display = "none";
+//     }
+//     else{ 
+//     addressError.style.display = "block";
+// }
+
+// form.addEventListener ("submit", validateForm);
+// }
 
 
-form.addEventListener("submit", (e) => {
 
 
-      
-    let messages = [];
-        if (fullName.value === "" || fullName.value == null) {
-            messages.push("Name is required");
-        }
 
-     //Tell the browser what need to be typed in
-        if (fullName.value.length <0) {
-            messages.push("your email must be longer than 6 characters");
-        }
+//-----------------------------------------------------------------
 
-        if (subject.value.length <=10) {
-            messages.push("your text must be longer than 20 characters");
-           
-        }
-
-        if (email.value.length <= 6) {
-            messages.push("your address must be longer than 25 characters");
-        }
-        if (address.value.length < 25) {
-            messages.push("your address must be longer than 25 characters");
-        }
+// function checklength (value, len){
+//     if (value.trim().length > len) {
+//         return true;
+//     }
+//     else {
+//         return false;
+//     }
+// }
 
 
-        //if message = sent, display. else, error message
-        message.innerHTML = 
-        '<div id="message" class="message">Your message has been sent</div>';
 
-//A code that prevents the page to load if the submit button is being pushed
- 
+// function validateEmail(email){
+//     const regEx = /\S+@\S+\.\S+/;
+//     const patternMatches = regEx.test(email);
+//     return patternMatches;
+// }
+
+
+
+// form.onsubmit = function (){
+//     event.preventDefault();
+//     console.log (event)
+//     console.log (name.value);
+// }
         
-    } 
-    });
-
-    //Bringing information from this site
+  
+    // Bringing information from this site
     // fetch('https://wger.de/api/v2/muscle/?format=json')
     // .then(response => response.json())
     // .then(data => console.log(data));
+
+
+    const url = 'https://wger.de/api/v2/muscle/?format=json';
+
+
+    const out = document.querySelector("div#container");
+
+ function listData(list){
+  out.innerHTML = "";
+  for (let item of list) {
+    //console.log(item);
+    let newDiv = `<div>
+      <img src="${item.image}" alt="${item.name}">
+      <h2>${item.name}</h2>
+      <p>From: ${item.id}</p>
+    </div>`;
+    out.innerHTML += newDiv;
+  }
+}
+
+function myFetch(url) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", url);
+    //xhr.onload = function() { return resolve(xhr.responseText); };
+    xhr.onload = () => resolve(xhr.responseText);
+    //xhr.onerror = function() { return reject(xhr.statusText); };
+    xhr.onerror = () => reject(xhr.statusText);
+    xhr.send();
+  });
+}
+
+myFetch (url)
+  .then(data => JSON.parse(data).id)
+  .then(list => listData(list))
 
 
     
