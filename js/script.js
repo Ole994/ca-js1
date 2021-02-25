@@ -94,14 +94,15 @@
  function listData(list){
   out.innerHTML = "";
   for (let item of list) {
-    //console.log(item);
+    console.log(item);
     let newDiv = `<div>
-      <img src="${item.image}" alt="${item.name}">
+      <img src="${'https://wger.de' + item.image_url_main}" alt="${item.name}">
       <h2>${item.name}</h2>
       <p>From: ${item.id}</p>
     </div>`;
     out.innerHTML += newDiv;
   }
+
 }
 
 function myFetch(url) {
@@ -117,7 +118,7 @@ function myFetch(url) {
 }
 
 myFetch (url)
-  .then(data => JSON.parse(data).id)
+  .then(data => JSON.parse(data).results)
   .then(list => listData(list))
 
 
